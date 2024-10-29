@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Simples com Formulário de Cadastro</title>
+  
+  <style>
+    /* Estilos básicos para o site */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Barra de navegação com três listras */
+    .navbar {
+      display: flex;
+      justify-content: flex-end;
+      background-color: #333;
+      padding: 10px 20px;
+      position: relative;
+    }
+
+    /* Estilos para o ícone de menu (três listras) */
+    .menu-icon {
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Menu lateral oculto inicialmente */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: #333;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
+
+    /* Links do menu lateral */
+    .sidebar a {
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 20px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #575757;
+    }
+
+    /* Fechar menu lateral */
+    .closebtn {
+      position: absolute;
+      top: 10px;
+      right: 25px;
+      font-size: 36px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Estilos para o fundo escuro (overlay) */
+    .overlay {
+      display: none; /* Escondido inicialmente */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+
+    /* Formulário de criação de conta como modal */
+    .form-container {
+      display: none; /* Escondido inicialmente */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2; /* Acima do overlay */
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="email"],
+    .form-container input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .form-container button:hover {
+      background-color: #45a049;
+    }
+
+    .close-form {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      color: #333;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<!-- Barra de navegação com o ícone de menu -->
+<div class="navbar">
+  <span class="menu-icon" onclick="openSidebar()">&#9776;</span>
+</div>
+
+<!-- Menu lateral -->
+<div id="mySidebar" class="sidebar">
+  <span class="closebtn" onclick="closeSidebar()">&times;</span>
+  <a href="#login">Fazer Login</a>
+  <a href="#register" onclick="showRegisterForm()">Criar Conta</a>
+</div>
+
+<!-- Fundo escuro para o modal -->
+<div id="overlay" class="overlay" onclick="closeRegisterForm()"></div>
+
+<!-- Formulário de criação de conta como modal -->
+<div id="registerForm" class="form-container">
+  <span class="close-form" onclick="closeRegisterForm()">&times;</span>
+  <h2>Criar Conta</h2>
+  <form>
+    <label for="name">Nome Completo</label>
+    <input type="text" id="name" name="name" placeholder="Digite seu nome" required>
+
+    <label for="idade">Idade</label>
+    <input type="text" id="idade" idade="idade" placeholder="Digite sua idade" required>
+
+    <label>Sexo:</label>
+<div>
+  
+    <label> </label><input type="radio" name="sexo" value="masculino" required>Masculino</label>
+ 
+    <label> <input type="radio" name="sexo" value="feminino" required>Feminino</label>
+
+    <label> <input type="radio" name="sexo" value="outro" required>Outro</label>
+    </div>
+
+
+    <label for="email">E-mail</label>
+    <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+
+    <label for="password">Senha</label>
+    <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+
+    <label for="confirm_password">Confirme sua Senha</label>
+    <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirme sua senha" required>
+
+    <button type="submit">Registrar</button>
+  </form>
+</div>
+
+<!-- Conteúdo da página -->
+<div style="padding: 20px;">
+  <h1>Bem-vindo ao BigHotel</h1>
+  <p>Aqui onde seu conforto e garantido.</p>
+</div>
+
+<script>
+  // Função para abrir o menu lateral
+  function openSidebar() {
+    document.getElementById("mySidebar").style.width = "250px";
+  }
+
+  // Função para fechar o menu lateral
+  function closeSidebar() {
+    document.getElementById("mySidebar").style.width = "0";
+  }
+
+  // Função para mostrar o formulário de registro com o overlay
+  function showRegisterForm() {
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("registerForm").style.display = "block";
+    closeSidebar(); // Fecha o menu lateral após abrir o formulário
+  }
+
+  // Função para fechar o formulário de registro e o overlay
+  function closeRegisterForm() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("registerForm").style.display = "none";
+  }
+</script>
+
+</body>
+</html>
